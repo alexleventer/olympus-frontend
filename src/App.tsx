@@ -9,8 +9,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import useTheme from "./hooks/useTheme";
 import useBonds, { IAllBondData } from "./hooks/Bonds";
 import { useWeb3Context } from "./hooks/web3Context";
-import useSegmentAnalytics from "./hooks/useSegmentAnalytics";
-import { segmentUA } from "./helpers/userAnalyticHelpers";
 import { shouldTriggerSafetyCheck } from "./helpers";
 
 import { calcBondDetails } from "./slices/BondSlice";
@@ -99,7 +97,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
-  useSegmentAnalytics();
   useGoogleAnalytics();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -231,11 +228,6 @@ function App() {
       // then user DOES have a wallet
       connect().then(() => {
         setWalletChecked(true);
-        segmentUA({
-          type: "connect",
-          provider: provider,
-          context: currentPath,
-        });
       });
     } else {
       // then user DOES NOT have a wallet

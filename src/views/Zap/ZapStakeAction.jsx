@@ -36,7 +36,6 @@ import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 import { ReactComponent as ZapperIcon } from "../../assets/icons/powered-by-zapper.svg";
 import { ReactComponent as SettingsIcon } from "../../assets/icons/settings.svg";
 import { ethers } from "ethers";
-import { segmentUA } from "../../helpers/userAnalyticHelpers";
 import { trim } from "src/helpers";
 import { Trans } from "@lingui/macro";
 
@@ -72,7 +71,6 @@ function ZapStakeAction(props) {
       token: token,
       address: address,
     };
-    segmentUA(uaData);
     setZapToken(token);
     handleClose();
   };
@@ -102,7 +100,6 @@ function ZapStakeAction(props) {
       token: zapToken,
       minOutput: outputQuantity,
     };
-    segmentUA(uaData);
   };
 
   const ohmMarketPrice = useAppSelector(state => {

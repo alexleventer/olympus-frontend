@@ -4,8 +4,6 @@ import { ReactComponent as CircleZapIcon } from "../../assets/icons/circle-zap.s
 import { ReactComponent as ArrowUp } from "../../assets/icons/arrow-up.svg";
 import MultiLogo from "../../components/MultiLogo";
 import { makeStyles } from "@material-ui/core/styles";
-import { segmentUA } from "../../helpers/userAnalyticHelpers";
-import { useState } from "react";
 import { Trans } from "@lingui/macro";
 
 const useStyles = makeStyles(theme => ({
@@ -53,7 +51,6 @@ function ZapInfo({ tokens, address }) {
       address: address,
       type: "Learn more OlyZaps",
     };
-    segmentUA(uaData);
   };
   const classes = useStyles();
   return (

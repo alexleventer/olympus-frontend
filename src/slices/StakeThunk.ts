@@ -12,7 +12,6 @@ import {
   IChangeApprovalWithVersionAsyncThunk,
   IJsonRPCError,
 } from "./interfaces";
-import { segmentUA } from "../helpers/userAnalyticHelpers";
 import { IERC20, OlympusStakingv2__factory, OlympusStaking__factory, StakingHelper } from "src/typechain";
 import ReactGA from "react-ga";
 
@@ -218,7 +217,6 @@ export const changeStake = createAsyncThunk(
       return;
     } finally {
       if (stakeTx) {
-        segmentUA(uaData);
         ReactGA.event({
           category: "Staking",
           action: uaData.type ?? "unknown",

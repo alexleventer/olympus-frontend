@@ -5,7 +5,6 @@ import { getBalances } from "./AccountSlice";
 import { IActionValueAsyncThunk, IBaseAddressAsyncThunk, IZapAsyncThunk } from "./interfaces";
 import { NetworkId } from "src/constants";
 import { error, info } from "./MessagesSlice";
-import { segmentUA } from "../helpers/userAnalyticHelpers";
 import { ethers } from "ethers";
 interface IUAData {
   address: string;
@@ -63,7 +62,6 @@ export const changeZapTokenAllowance = createAsyncThunk(
         approved: true,
         type: "Zap Approval Request Success",
       };
-      segmentUA(uaData);
       dispatch(info("Successfully approved token!"));
       return Object.fromEntries([[action, true]]);
     } catch (e: unknown) {
@@ -74,7 +72,6 @@ export const changeZapTokenAllowance = createAsyncThunk(
         approved: false,
         type: "Zap Approval Request Failure",
       };
-      segmentUA(uaData);
       console.error(e);
       dispatch(error(`${rpcError.message} ${rpcError.data?.message ?? ""}`));
       throw e;
@@ -134,7 +131,6 @@ export const executeZap = createAsyncThunk(
         slippage: slippage,
         approved: true,
       };
-      segmentUA(uaData);
       dispatch(info("Successful Zap!"));
     } catch (e: unknown) {
       let uaData: IUADataZap = {
@@ -145,7 +141,6 @@ export const executeZap = createAsyncThunk(
         slippage: slippage,
         approved: false,
       };
-      segmentUA(uaData);
       console.error(e);
       const rpcError = e as any;
       dispatch(error(`${rpcError.message} ${rpcError.data?.message ?? ""}`));

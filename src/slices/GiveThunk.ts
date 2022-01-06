@@ -14,10 +14,7 @@ import {
   IJsonRPCError,
   IBaseAddressAsyncThunk,
 } from "./interfaces";
-import { segmentUA } from "../helpers/userAnalyticHelpers";
 import { t } from "@lingui/macro";
-import { useLocation } from "react-router-dom";
-import { EnvHelper } from "src/helpers/Environment";
 
 interface IUAData {
   address: string;
@@ -202,8 +199,6 @@ export const changeGive = createAsyncThunk(
       return;
     } finally {
       if (giveTx) {
-        segmentUA(uaData);
-
         dispatch(clearPendingTxn(giveTx.hash));
       }
     }
@@ -269,8 +264,6 @@ export const changeMockGive = createAsyncThunk(
       return;
     } finally {
       if (giveTx) {
-        segmentUA(uaData);
-
         dispatch(clearPendingTxn(giveTx.hash));
       }
     }
