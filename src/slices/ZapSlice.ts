@@ -6,20 +6,6 @@ import { IActionValueAsyncThunk, IBaseAddressAsyncThunk, IZapAsyncThunk } from "
 import { NetworkId } from "src/constants";
 import { error, info } from "./MessagesSlice";
 import { ethers } from "ethers";
-interface IUAData {
-  address: string;
-  value: string;
-  approved: boolean;
-  type: string | null;
-}
-interface IUADataZap {
-  address: string;
-  value: string;
-  token: string;
-  type: string;
-  slippage: string;
-  approved: boolean;
-}
 export const getZapTokenAllowance = createAsyncThunk(
   "zap/getZapTokenAllowance",
   async ({ address, value, action }: IActionValueAsyncThunk, { dispatch }) => {
@@ -55,23 +41,10 @@ export const changeZapTokenAllowance = createAsyncThunk(
       const signer = provider.getSigner();
       const tx = await signer.sendTransaction(transactionData);
       await tx.wait();
-
-      let uaData: IUAData = {
-        address: address,
-        value: value,
-        approved: true,
-        type: "Zap Approval Request Success",
-      };
       dispatch(info("Successfully approved token!"));
       return Object.fromEntries([[action, true]]);
     } catch (e: unknown) {
       const rpcError = e as any;
-      let uaData: IUAData = {
-        address: address,
-        value: value,
-        approved: false,
-        type: "Zap Approval Request Failure",
-      };
       console.error(e);
       dispatch(error(`${rpcError.message} ${rpcError.data?.message ?? ""}`));
       throw e;
@@ -122,25 +95,8 @@ export const executeZap = createAsyncThunk(
       const signer = provider.getSigner();
       const tx = await signer.sendTransaction(transactionData);
       await tx.wait();
-
-      let uaData: IUADataZap = {
-        address: address,
-        value: sellAmount.toString(),
-        token: tokenAddress,
-        type: "Zap Swap Success",
-        slippage: slippage,
-        approved: true,
-      };
       dispatch(info("Successful Zap!"));
     } catch (e: unknown) {
-      let uaData: IUADataZap = {
-        address: address,
-        value: sellAmount.toString(),
-        token: tokenAddress,
-        type: "Zap Swap Failure",
-        slippage: slippage,
-        approved: false,
-      };
       console.error(e);
       const rpcError = e as any;
       dispatch(error(`${rpcError.message} ${rpcError.data?.message ?? ""}`));

@@ -66,11 +66,6 @@ function ZapStakeAction(props) {
   const isAppLoading = useAppSelector(state => state.app.loading);
   const [zapToken, setZapToken] = useState(null);
   const handleSelectZapToken = token => {
-    const uaData = {
-      type: "OlyZaps Token Select",
-      token: token,
-      address: address,
-    };
     setZapToken(token);
     handleClose();
   };
@@ -94,14 +89,6 @@ function ZapStakeAction(props) {
   const [inputQuantity, setInputQuantity] = useState("");
   const [outputQuantity, setOutputQuantity] = useState("");
 
-  const olyZapsSwapOfferDisplay = (amount, outPutQuantity) => {
-    const uaData = {
-      type: "OlyZaps Offer Display",
-      token: zapToken,
-      minOutput: outputQuantity,
-    };
-  };
-
   const ohmMarketPrice = useAppSelector(state => {
     return state.app.marketPrice;
   });
@@ -119,9 +106,6 @@ function ZapStakeAction(props) {
     const amount = Number(q);
     setInputQuantity(amount);
     setOutputQuantity(amount / exchangeRate);
-    if (outputQuantity) {
-      olyZapsSwapOfferDisplay(amount, outputQuantity);
-    }
   };
 
   const setOutputTokenQuantity = q => {

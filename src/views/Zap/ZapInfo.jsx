@@ -46,12 +46,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ZapInfo({ tokens, address }) {
-  const trackClick = address => {
-    let uaData = {
-      address: address,
-      type: "Learn more OlyZaps",
-    };
-  };
   const classes = useStyles();
   return (
     <>
@@ -141,9 +135,6 @@ function ZapInfo({ tokens, address }) {
             href="https://docs.olympusdao.finance/main/using-the-website/olyzaps"
             target="_blank"
             className="learn-more-button"
-            onClick={() => {
-              trackClick(address);
-            }}
           >
             <Typography variant="body1">Learn More</Typography>
             <SvgIcon component={ArrowUp} color="primary" />
